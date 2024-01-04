@@ -30,11 +30,40 @@
             <% end %>
           </td>
           <% end %>
+          <td>
+            コメント数:<%= @book.book_comments.count %>
+          </td>
           <% if @user == current_user %>
             <td><%= link_to 'Edit', edit_book_path(@book), class: "btn btn-sm btn-success" %></td>
             <td><%= link_to 'Destroy', @book, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger"%></td>
           <% end %>
         </tr>
+      </table>
+      <table>
+          <% @book.book_comments.each do |book_comment| %>
+          <tr>
+            <td>
+              <%= link_to(@book.user) do %>
+            <%= image_tag book_comment.user.get_profile_image, size:"100x100" %><br>
+            <%= book_comment.user.name %>
+            <% end %>
+            </td>
+            <td>
+              <%= book_comment.comment %>
+            </td>
+            <td>
+              <% if book_comment.user == current_user %>
+              <%= link_to "Destroy", book_book_comment_path(book_comment.book, book_comment), method: :delete, class: 'btn btn-sm btn-danger' %>
+              <% end %>
+            </td>
+          </tr>
+          <% end %>
+      </table>
+      <table>
+          <%= form_with model: [@book, @book_comment] do |f| %>
+          <tr><%= f.text_area :comment, class: 'form-control comment' %></tr>
+          <tr><%= f.submit "送信" %></tr>
+          <% end %>
       </table>
     </div>
   </div>
