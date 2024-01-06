@@ -59,12 +59,12 @@
           </tr>
           <% end %>
       </table>
-      <table>
+
           <%= form_with model: [@book, @book_comment] do |f| %>
-          <tr><%= f.text_area :comment, class: 'form-control comment' %></tr>
+          <tr><%= f.text_area :comment, rows:'5', class: 'form-control comment' %></tr>
           <tr><%= f.submit "送信" %></tr>
           <% end %>
-      </table>
+
     </div>
   </div>
 </div>
